@@ -2,7 +2,11 @@ import socket
 import argparse
 import struct
 import binascii
-
+'''
+Contains code for getting data from RTDS using UDP protocol, and further processing,
+extracting ppc data from relevant case file,
+and performing observability analysis
+'''
 BUFFER_SIZE = 65536
 
 def binary(num):
@@ -80,63 +84,6 @@ class PowerSystem:
 		file_to_read=case_dict[int(self.rtds_data[0])]
 		self.ppc=DynamicImporter(file_to_read,file_to_read)
 
-	# def extract_circuit_breaker_status(self):
-	# 	''' from first line we know the number of circuit breakers, so if that number is > 32, we need GIF(number of circuit breakers/32) + 1 numbers to represent the availability of measurements
-	# 	We will read msb to lsb for bits, and for the last number, ignore the remaining bits.
-	# 	'''
-
-	# 	# Ensure that RTDS data has been extracted and that a valid topology has been identified
-	# 	assert (self.rtds_data is not None and len(self.rtds_data) != 0) and (len(self.ppc) != 0)
-
-
-	# 	branch_data=self.ppc["branch"]
-	# 	self.max_num_cb=2*len(branch_data)
-	# 	'''
-	# 	For n circuit breakers, you need n bits to encode their status.
-	# 	Each value sent by RTDS is a 32 bit floating point number, therefore it can encode status of maximum 32 circuit breakers
-	# 	For n > 32, you need more than 1 floating point number to encode the status, and the following variable encodes that quantity.
-	# 	The data is sent as follows: Let n=40, then the first floating point number will have 32 bits for the status of the first 32 CB.
-	# 	The next floating point number will have first 8 bits telling the status of the remaining 8 CB, and the rest of the bits will be 0
-	# 	'''
-
-	# 	self.num_cb_decimals_req=int(max_num_ckt_breakers/32) if (max_num_ckt_breakers%32 == 0) else ((max_num_ckt_breakers/32)+1)
-
-
-	# 	availability_ckt_brkrs=[]
-
-	# 	for i in range(num_ckt_brk_status_nums_req):
-	# 		bin_str=binary(rtds_data[1+i])
-	# 		for b in bin_str:
-	# 			availability_ckt_brkrs.add(int(b)) # 1 if available, 0 if not
-
-	# 	availability_ckt_brkrs=availability_ckt_brkrs[:max_num_ckt_breakers] # only the <max_number_of_circuit_breakers> bits are useful, rest is just padding
-
-
-	# 	num_available_ckt_brkrs=sum(status_ckt_brkrs)
-
-	# 	assert num_available_ckt_brkrs <=max_num_ckt_breakers
-
-	# 	#position update, used in rtds_data
-	# 	current_pos=1+num_ckt_brk_status_nums_req
-	# 	ckt_brk_pos=0
-	# 	'''Modify availability_vector of circuit breakers to the following
-	# 	-1 if unavailable, 0 if line is closed, 1 if line is open
-	# 	'''
-	# 	availability_ckt_brkrs=[i-1 for i in availability_ckt_brkrs] 
-
-
-	# 	for i in range(num_available_ckt_brkrs):
-	# 		cur_val=rtds_data[current_pos+i]
-	# 		while availability_ckt_brkrs[ckt_brk_pos] != 0:
-	# 			ckt_brk_pos+=1
-
-	# 		if availability_ckt_brkrs[ckt_brk_pos] == 0:
-	# 			availability_ckt_brkrs[ckt_brk_pos]=cur_val
-	# 			ckt_brk_pos+=1
-	# 	current_pos+=num_available_ckt_brkrs
-
-	# 	self.cb_status=availability_ckt_brkrs
-	# 	return current_pos # useful when parsing for Pbus, Qbus, Pflow and Qflow
 
 	def extract_measurement_data(self,start_pos=1,measurement_case=0):
 		'''General function to extract data from rtds_data
@@ -257,52 +204,3 @@ class PowerSystem:
 
 		# observable
 		return 0
-
-
-
-
-
-
-
-baseMVA=self.ppc["baseMVA"]
-bus_data=self.ppc["bus"]
-gen_data=self.ppc["gen"]
-branch_data=self.ppc["branch"]
-gen_cost_data=self.ppc["gencost"]
-
-max_num_gen=len(gen_data)
-max_num_load=len(bus_data)
-num_gen_status_nums_req= max_num_gen/32 if max_num_gen%32 == 0 else (max_num_gen/32+1)
-num_load_status_nums_req= max_num_load/32 if max_num_load%32 == 0 else (max_num_load/32+1)
-
-########################## getting the circuit breaker values ###############################
-
-
-
-current_pos=1+num_ckt_brk_status_nums_req+num_available_ckt_brkrs
-
-########################## getting the P injection values ###############################
-availability_gen=[]
-for i in range(num_gen_status_nums_req):
-	bin_str=binary(rtds_data[current_pos+i])
-	for b in bin_str:
-		availability_gen.add(int(b)) # 1 if available, 0 if not
-
-availability_gen=availability_gen[:max_num_gen]
-
-num_available_gen=sum(availability_gen)
-
-assert num_available_gen <= max_num_gen
-
-current_pos+=num_gen_status_nums_req
-gen_pos=0
-availability_gen=[i-1 for i in availability_gen]
-
-for i in range(num_available_gen):
-	cur_val=rtds_data[current_pos+i]
-	while availability_gen[gen_pos] != 0:
-		gen_pos+=1
-	if availability_gen[gen_pos] == 0:
-status_p_gen=[]
-
-

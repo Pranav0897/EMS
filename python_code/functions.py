@@ -389,11 +389,3 @@ def state_estimate(P,Q,Pij,Qij, casefile):
 
 
 
-# M = cellfun(@(x) double(x), C)
-
-P = cellfun(@(x) double(x), P); 
-Q = cellfun(@(x) double(x), Q); 
-Pij = cellfun(@(x) double(x), Pij); 
-Qij = cellfun(@(x) double(x), Qij); 
-linedatas = cellfun(@(x) double(x), linedatas); 
-ybus = cellfun(@(x) double(x), ybus);

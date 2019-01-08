@@ -1,5 +1,5 @@
 import numpy as np
-import myfmincon
+import matlabopti
 
 def ybus_incidence(linedatas, busdatas):
 
@@ -349,7 +349,6 @@ def state_estimate(P,Q,Pij,Qij, casefile):
 	# P[:2] = P[:2]*2
 
 	# SE initialization
-
 	errorlb = -np.inf*np.ones(P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0],)
 	errorub = np.inf*np.ones(P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0],)
 	V_estub = 1.1*np.ones(P.shape[0],);
@@ -358,30 +357,20 @@ def state_estimate(P,Q,Pij,Qij, casefile):
 	phi_estlb = -(np.pi)*np.ones(P.shape[0],);
 	phi_estlb[0] = 0;
 	phi_estub[0] = 0;
-
-	# options = optimset('Display','on','algorithm','sqp');
-	# tic
-
-	x0 = np.hstack((np.zeros(P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0],), np.ones(nbus,), np.zeros(nbus,)))
-	# param1 = objse(x,P,Q,Pij,Qij)
-	# param2 = np.hstack((errorlb,V_estlb,phi_estlb))
-	# param3 = np.hstack((errorub,V_estub,phi_estub))
-	# param4 = nlconse(x,P,Q,Pij,Qij,linedatas,ybus)
-
-	# [x_old val] = fmincon(@(x) param1,x0,[],[],[],[],param2,param3,@(x) param4, options)
-	opt = myfmincon.initialize()
 	
-	x0 = x0.tolist() 
 	P = P.tolist() 
 	Q = Q.tolist() 
 	Pij = Pij.tolist() 
 	Qij = Qij.tolist() 
 	linedatas = linedatas.tolist() 
-	ybus = ybus.tolist()	
+	ybus_real = np.real(ybus)
+	ybus_imag = np.imag(ybus)	
+	ybus_real = ybus_real.tolist()
+	ybus_imag = ybus_imag.tolist()
 
-	[x_old, val] = opt.myfmincon(nbus, P, Q, Pij, Qij, linedatas, ybus)
+	opt = matlabopti.initialize()
+	[x_old, val] = opt.myfmincon(nbus, P, Q, Pij, Qij, linedatas, ybus_real, ybus_imag)
 
-	# toc
 	Vse = x_old[P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]:P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]+nbus]
 	phise = x_old[P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]+nbus:P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]+2*nbus]
 

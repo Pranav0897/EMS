@@ -1,4 +1,4 @@
-Packaging and Deploying myfmincon
+Packaging and Deploying matlabopti
 
 1. Prerequisites for Deployment 
 
@@ -15,11 +15,11 @@ iii. Run the MATLAB Runtime installer provided with MATLAB.
 
 B. Verify that a Linux 64-bit version of Python 2.7, 3.3, and/or 3.4 is installed.
 
-2. Installing the myfmincon Package
+2. Installing the matlabopti Package
 
-A. Go to the directory that contains the file setup.py and the subdirectory myfmincon. If 
-   you do not have write permissions, copy all its contents to a temporary location and 
-   go there.
+A. Go to the directory that contains the file setup.py and the subdirectory matlabopti. 
+   If you do not have write permissions, copy all its contents to a temporary location 
+   and go there.
 
 B. Execute the command:
 
@@ -45,11 +45,11 @@ Make the following changes:
 
 Finally, execute the commands or add them to your shell initialization file.
 
-3. Using the myfmincon Package
+3. Using the matlabopti Package
 
-The myfmincon package is on your Python path. To import it into a Python script or 
+The matlabopti package is on your Python path. To import it into a Python script or 
    session, execute:
 
-    import myfmincon
+    import matlabopti
 
 If a namespace must be specified for the package, modify the import statement accordingly.

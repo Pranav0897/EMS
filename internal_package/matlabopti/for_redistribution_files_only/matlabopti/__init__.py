@@ -20,7 +20,7 @@ class _PathInitializer(object):
     SUPPORTED_PYTHON_VERSIONS = ['2_7', '3_3', '3_4', '3_5']
     RUNTIME_VERSION_W_DOTS = '9.1'
     RUNTIME_VERSION_W_UNDERSCORES = '9_1'
-    PACKAGE_NAME = 'myfmincon'
+    PACKAGE_NAME = 'matlabopti'
     
     def set_interpreter_version(self):    
         """Make sure the interpreter version is supported."""

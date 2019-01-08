@@ -24,9 +24,9 @@ if __name__ == '__main__':
         url='http://www.mathworks.com/',
         platforms=['Linux', 'Windows', 'MacOS'],
         packages=[
-        'myfmincon'
+        'matlabopti'
         ],
-        package_data={'myfmincon': ['*.ctf']},
+        package_data={'matlabopti': ['*.ctf']},
         # Executes the custom code above in order to delete the build area.
         cmdclass={'install': InstallRuntime}
     )

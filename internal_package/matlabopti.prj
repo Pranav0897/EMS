@@ -1,9 +1,9 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="665728533" file="/home/akash/github/EMS/internal_package/matlabopti.prj" location="/home/akash/github/EMS/internal_package" name="matlabopti" preferred-package-location="/home/akash/github/EMS/internal_package/matlabopti/for_redistribution" preferred-package-type="package.type.install" target="target.ezdeploy.library" target-name="Library Compiler">
+  <configuration build-checksum="4228158405" file="/home/akash/github/EMS/internal_package/matlabopti.prj" location="/home/akash/github/EMS/internal_package" name="matlabopti" preferred-package-location="/home/akash/github/EMS/internal_package/matlabopti/for_redistribution" preferred-package-type="package.type.install" target="target.ezdeploy.library" target-name="Library Compiler">
     <param.appname>matlabopti</param.appname>
     <param.icon />
     <param.icons />
-    <param.version>1.1</param.version>
+    <param.version>1.2</param.version>
     <param.authnamewatermark />
     <param.email />
     <param.company />

@@ -7,7 +7,7 @@ case14 = sio.loadmat('case14.mat')['a_dict']
 [ybus, A] = ybus_incidence(linedatas, busdatas)
 [V,phi] = newton(ybus,busdatas,linedatas)
 [P,Q,Pij,Qij] = measurements(linedatas,V,phi,ybus)
-[Vse,phise]= state_estimate(P,Q,Pij,Qij, case14)
+state_estimate(P,Q,Pij,Qij, case14)
 
 
 # print(busdatas)

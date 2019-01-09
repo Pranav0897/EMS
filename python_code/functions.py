@@ -358,23 +358,34 @@ def state_estimate(P,Q,Pij,Qij, casefile):
 	phi_estlb[0] = 0;
 	phi_estub[0] = 0;
 	
-	P = P.tolist() 
+	P = P.tolist()
+	P = [0 for x in range(len(P))] 
 	Q = Q.tolist() 
+	Q = [0 for x in range(len(Q))]
 	Pij = Pij.tolist() 
-	Qij = Qij.tolist() 
-	linedatas = linedatas.tolist() 
+	Pij = [0 for x in range(len(Pij))]
+	Qij = Qij.tolist()
+	Qij = [0 for x in range(len(Qij))] 
+	linedatas = linedatas.tolist()
+	# print(linedatas)
+	# quit() 
 	ybus_real = np.real(ybus)
 	ybus_imag = np.imag(ybus)	
 	ybus_real = ybus_real.tolist()
 	ybus_imag = ybus_imag.tolist()
 
 	opt = matlabopti.initialize()
-	[x_old, val] = opt.myfmincon(nbus, P, Q, Pij, Qij, linedatas, ybus_real, ybus_imag)
+	# [x_old, val] = opt.myfmincon(nbus, P, Q, Pij, Qij, linedatas, ybus_real, ybus_imag)
 
-	Vse = x_old[P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]:P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]+nbus]
-	phise = x_old[P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]+nbus:P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]+2*nbus]
+	# Vse = x_old[P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]:P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]+nbus]
+	# phise = x_old[P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]+nbus:P.shape[0]+Q.shape[0]+Pij.shape[0]+Qij.shape[0]+2*nbus]
 
-	return [Vse, phise]
+	fuck = opt.myfmincon(nbus, P, Q, Pij, Qij, linedatas, ybus_real, ybus_imag)
 
+	print(fuck)
 
+	# return [Vse, phise]
+	return None
 
+# ybus_real = vertcat(ybus_real{:});
+# ybus_imag = vertcat(ybus_imag{:});

@@ -229,8 +229,8 @@ def newton(ybus, busdatas, linedatas):
 		J = np.vstack((np.hstack((J1, J2)), np.hstack((J3, J4))))
 		# J = J.astype(np.float64)
 		X = np.linalg.solve(J, r) # not sure, check. 
-		dTh = X[:nbus-1] # change in voltage angle
-		dV = X[nbus-1:] # change in voltage magnitude 
+		dTh = np.real(X[:nbus-1]) # change in voltage angle
+		dV = np.real(X[nbus-1:]) # change in voltage magnitude 
 
 		dV_sq = np.array([])
 		dV_sq = np.hstack((dV_sq, dV))

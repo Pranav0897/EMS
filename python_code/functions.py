@@ -178,11 +178,7 @@ def newton(ybus, busdatas, linedatas):
 				if(n==m):
 					for n in range(nbus):
 						J1[i,k] = J1[i,k] - V[m]* V[n]*(G_nr[m,n]*np.sin(phi[m]-phi[n]) - B_nr[m,n]*np.cos(phi[m]-phi[n])) # pp. 84 Wang. eq(2.41)
-					# print(J1[i, k])
-					# print(V[m])
-					# print(B_nr[m, m])
-					# print("**********")
-					# np.seterr(over='ignore')
+					
 					J1[i,k] = J1[i,k] - np.power(V[m], (2*B_nr[m,m]), dtype=np.complex)
 				else:
 					J1[i,k] = V[m]* V[n]*(G_nr[m,n]*np.sin(phi[m]-phi[n]) - B_nr[m,n]*np.cos(phi[m]-phi[n])) # pp. 84 Wang. eq(2.42)

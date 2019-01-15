@@ -178,8 +178,14 @@ def newton(ybus, busdatas, linedatas):
 				if(n==m):
 					for n in range(nbus):
 						J1[i,k] = J1[i,k] - V[m]* V[n]*(G_nr[m,n]*np.sin(phi[m]-phi[n]) - B_nr[m,n]*np.cos(phi[m]-phi[n])) # pp. 84 Wang. eq(2.41)
-					
+
+					print(J1[i,k])
+					print(V[m])
+					print(2*B_nr[m,m])
 					J1[i,k] = J1[i,k] - np.power(V[m], (2*B_nr[m,m]), dtype=np.complex)
+					print("=")
+					print(np.power(V[m], (2*B_nr[m,m]), dtype=np.complex))
+					print("************************")
 				else:
 					J1[i,k] = V[m]* V[n]*(G_nr[m,n]*np.sin(phi[m]-phi[n]) - B_nr[m,n]*np.cos(phi[m]-phi[n])) # pp. 84 Wang. eq(2.42)
 
@@ -192,7 +198,7 @@ def newton(ybus, busdatas, linedatas):
 				if(n==m):
 					for n in range(nbus):
 						J2[i,k] = J2[i,k] + V[n]*(G_nr[m,n]*np.cos(phi[m]- phi[n]) + B_nr[m,n]*np.sin(phi[m]-phi[n]))
-					J2[i,k] = J2[i,k] + V[m]*G_nr[m,m];
+					J2[i,k] = J2[i,k] + V[m]*G_nr[m,m]
 				else:
 					J2[i,k] = V[m]*(G_nr[m,n]*np.cos(phi[m]-phi[n]) + B_nr[m,n]*np.sin(phi[m]-phi[n]));
 	    
@@ -383,5 +389,6 @@ def state_estimate(P,Q,Pij,Qij, casefile):
 	# return [Vse, phise]
 	return None
 
-# ybus_real = vertcat(ybus_real{:});
-# ybus_imag = vertcat(ybus_imag{:});
+
+# ideas
+# 1. check J1 from matlab code and compare it to python output, see where is the overflow error coming from.

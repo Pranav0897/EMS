@@ -1,7 +1,7 @@
-function [Vse phise]=state_estimate(P,Q,Pij,Qij)
+function [Vse phise]=state_estimate(path_to_file)
 %% MATPOWER to MYFORMAT
 % [busdatas, linedatas, gencost] = myformat(ext2int(casefile));
-casefile=load('case14.mat');
+casefile=load(path_to_file);
 casefile=casefile.a_dict;
 [busdatas, linedatas, gencost] = myformat(casefile);
 nbus = max(max(linedatas(:,1)),max(linedatas(:,2)));
@@ -12,9 +12,9 @@ nbus = max(max(linedatas(:,1)),max(linedatas(:,2)));
 [ybus A] = ybus_incidence(linedatas,busdatas);
 
 %% Measurements
-%[V,phi] = newton(ybus,busdatas,linedatas);
-%[P,Q,Pij,Qij] = measurements(linedatas,V,phi,ybus);
-%P(1:2) = P(1:2)*2
+[V,phi] = newton(ybus,busdatas,linedatas);
+[P,Q,Pij,Qij] = measurements(linedatas,V,phi,ybus);
+P(1:2) = P(1:2)*2;
 
 %% SE initialization
 
@@ -29,9 +29,9 @@ phi_estub(1) = 0;
 
 x0 = [zeros(length(P)+length(Q)+length(Pij)+length(Qij),1);ones(nbus,1);zeros(nbus,1)];
 options = optimset('Display','on','algorithm','sqp');
-tic
+%tic
 [x_old val] = fmincon(@(x) objse(x,P,Q,Pij,Qij),x0,[],[],[],[],[errorlb',V_estlb',phi_estlb'],[errorub',V_estub',phi_estub'],@(x) nlconse(x,P,Q,Pij,Qij,linedatas,ybus),options);
-toc
+%toc
 Vse = x_old(length(P)+length(Q)+length(Pij)+length(Qij)+1:length(P)+length(Q)+length(Pij)+length(Qij)+nbus);
 phise = x_old(length(P)+length(Q)+length(Pij)+length(Qij)+nbus+1:length(P)+length(Q)+length(Pij)+length(Qij)+2*nbus);
 

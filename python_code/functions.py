@@ -1,5 +1,6 @@
 import numpy as np
 import matlabopti
+import matlabems
 
 def ybus_incidence(linedatas, busdatas):
 
@@ -389,6 +390,15 @@ def state_estimate(P,Q,Pij,Qij, casefile):
 	# return [Vse, phise]
 	return None
 
+def state_estimate_alt(path_to_file):
+	# using entire matlab script as a single library
+	ems = matlabems.initialize()
+	Vse = ems.state_estimate(path_to_file)
+	return Vse
+
+
+
 
 # ideas
 # 1. check J1 from matlab code and compare it to python output, see where is the overflow error coming from.
+# create a bash script to call python and matlab as needed.

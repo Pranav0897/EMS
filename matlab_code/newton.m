@@ -1,5 +1,12 @@
 function [V,phi] = newton(Ybus_nr,busdatas,linedatas)
 
+linedatas = vertcat(linedatas{:});
+linedatas = cell2mat(linedatas);
+Ybus_nr = vertcat(Ybus_nr{:});
+Ybus_nr = cell2mat(Ybus_nr);
+busdatas = vertcat(busdatas{:});
+busdatas = cell2mat(busdatas);
+
 %% Newton-Raphson Load Flow 
 %% Getting busdata
 nbus = length(busdatas(:,1));

@@ -283,15 +283,15 @@ def measurements(linedatas, V, phi, ybus):
 	# power flows calculation
 	Pij = np.zeros(nbranch, )
 	Qij = np.zeros(nbranch, )
-	Pji = np.zeros(nbranch, )
-	Qji = np.zeros(nbranch, )
+	# Pji = np.zeros(nbranch, )
+	# Qji = np.zeros(nbranch, )
 	for o in range(nbranch):
 		m = int(fb[o])-1
 		n = int(tb[o])-1
-		Pij[o] = -V[m]**(2*G[m,n]) + V[m]*V[n]*(G[m,n]*np.cos(phi[m]-phi[n])+ B[m,n]*np.sin(phi[m]-phi[n]))
-		Qij[o] = V[m]**(2*(B[m,n]- bbus_perturbed[m,n])) +V[m]*V[n]*(G[m,n]*np.sin(phi[m]-phi[n]) - B[m,n]*np.cos(phi[m]-phi[n]))
-		Pji[o] = -V[n]**(2*G[n,m]) + V[n]*V[m]*(G[n,m]*np.cos(phi[n]-phi[m])+ B[n,m]*np.sin(phi[n]-phi[m]))
-		Qji[o] = V[n]**(2*(B[n,m]- bbus_perturbed[n,m])) +V[n]*V[m]*(G[n,m]*np.sin(phi[n]-phi[m]) - B[n,m]*np.cos(phi[n]-phi[m]))
+		Pij[o] = -np.power(V[m], (2*G[m,n])) + V[m]*V[n]*(G[m,n]*np.cos(phi[m]-phi[n])+ B[m,n]*np.sin(phi[m]-phi[n]))
+		Qij[o] = np.power(V[m], (2*(B[m,n]- bbus_perturbed[m,n]))) +V[m]*V[n]*(G[m,n]*np.sin(phi[m]-phi[n]) - B[m,n]*np.cos(phi[m]-phi[n]))
+		# Pji[o] = -V[n]**(2*G[n,m]) + V[n]*V[m]*(G[n,m]*np.cos(phi[n]-phi[m])+ B[n,m]*np.sin(phi[n]-phi[m]))
+		# Qji[o] = V[n]**(2*(B[n,m]- bbus_perturbed[n,m])) +V[n]*V[m]*(G[n,m]*np.sin(phi[n]-phi[m]) - B[n,m]*np.cos(phi[n]-phi[m]))
 
 	return [P,Q,Pij,Qij]
 
@@ -390,15 +390,35 @@ def state_estimate(P,Q,Pij,Qij, casefile):
 	# return [Vse, phise]
 	return None
 
-def state_estimate_alt(path_to_file):
+def state_estimate_alt(path_to_file, P, Q, Pij, Qij):
 	# using entire matlab script as a single library
+	P = P.reshape((P.shape[0], 1))
+	P = P.tolist()
+	Q = Q.reshape((Q.shape[0], 1))
+	Q = Q.tolist()
+	Pij = Pij.reshape((Pij.shape[0], 1))
+	Pij = Pij.tolist()
+	Qij = Qij.reshape((Qij.shape[0], 1))
+	Qij = Qij.tolist()
+
 	ems = matlabems.initialize()
-	Vse = ems.state_estimate(path_to_file)
-	return Vse
+	Vse, phise = ems.state_estimate(path_to_file, P, Q, Pij, Qij, nargout=2)
+	
+	return Vse, phise
 
+def newton_alt(ybus, busdatas, linedatas):
 
+	ybus = ybus.tolist()
+	busdatas = busdatas.tolist()
+	linedatas = linedatas.tolist()
 
+	ems = matlabems.initialize()
+	V, phi = ems.newton(ybus, busdatas, linedatas, nargout=2)
 
-# ideas
-# 1. check J1 from matlab code and compare it to python output, see where is the overflow error coming from.
-# create a bash script to call python and matlab as needed.
+	V = np.array(V)
+	V = V.reshape((V.shape[0],))
+	phi = np.array(phi)
+	phi = phi.reshape((phi.shape[0],))
+
+	return V, phi
+

@@ -1,4 +1,4 @@
-function [Vse phise]=state_estimate(path_to_file)
+function [Vse phise]=state_estimate(path_to_file, P,Q,Pij,Qij)
 %% MATPOWER to MYFORMAT
 % [busdatas, linedatas, gencost] = myformat(ext2int(casefile));
 casefile=load(path_to_file);
@@ -12,8 +12,17 @@ nbus = max(max(linedatas(:,1)),max(linedatas(:,2)));
 [ybus A] = ybus_incidence(linedatas,busdatas);
 
 %% Measurements
-[V,phi] = newton(ybus,busdatas,linedatas);
-[P,Q,Pij,Qij] = measurements(linedatas,V,phi,ybus);
+%[V,phi] = newton(ybus,busdatas,linedatas);
+
+%[P,Q,Pij,Qij] = measurements(linedatas,V,phi,ybus);
+P = vertcat(P{:});
+P = cell2mat(P);
+Q = vertcat(Q{:});
+Q = cell2mat(Q);
+Pij = vertcat(Pij{:});
+Pij = cell2mat(Pij);
+Qij = vertcat(Qij{:});
+Qij = cell2mat(Qij);
 P(1:2) = P(1:2)*2;
 
 %% SE initialization

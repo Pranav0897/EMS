@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block readmeblock %}
+    <link rel="stylesheet" type="text/css" href="../static/readme.css">
+
+    <h1 class="instructions-titles">
+        Instructions for using EMS
+    </h1>
+
+    <h2 class="instructions-titles">
+        Loading the data
+    </h2>
+
+    <ol>
+        <li>Provide the path to the config .mat file in the field provided</li>
+        <li>Provide the starting condition V, theta and P, Q</li>
+        <li>Press submit. 1 & 2 are necessary steps</li>
+    </ol>
+
+    <h2 class="instructions-titles">
+        Exploring the functionality
+    </h2>
+
+    <ol>
+        <li>Once the data has been loaded from the previous steps, various functions such as state estimation and load flow can be done</li>
+        <li>Explore these options in the tab titled operations</li>
+    </ol>
+
+{% endblock %}

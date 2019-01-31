@@ -1,0 +1,22 @@
+.label
+{
+    background-color: #354052;
+    font-size: 30px;
+    /* margin-right: 1700px; */
+    color: beige;
+}
+
+.entry
+{
+    position: relative;
+    bottom: 30px;
+    font-size: 25px;
+    display: block;
+}
+
+#submit-label
+{
+    background-color: #354052;
+    font-size: 30px;
+    text-align: center;
+}

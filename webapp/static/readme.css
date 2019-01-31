@@ -1,0 +1,35 @@
+.instructions-titles
+{
+    text-align: center;
+    color: beige;
+    background-color: #040841;
+    border-radius: 15%;
+    margin: 10px 500px;
+    border: 20px 0px;
+}
+
+
+
+li
+{
+    text-align: center;
+    color: beige;
+    font-size: 20px;
+    list-style-position: inside;
+}
+
+#submit-label-button
+{
+    background-color: #040841;
+}
+
+#submit-label
+{
+    color: beige;
+    size: 20px;
+}
+
+#submit-button
+{
+
+}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block datablock %}
+<link rel="stylesheet" type="text/css" href="../static/data.css">
+
+<h1>Input Data</h1>
+
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="input-label-entry">
+        <p class="label">.mat file path:</p>
+        <p class="entry">{{ form.path_input(size=512) }}</p>        
+    </div>
+
+    <div class="input-label-entry">
+        <p class="label">path to bus and line datas:</p>
+        <p class="entry">{{ form.path_input(size=512) }}</p>        
+    </div>
+    
+    <div id="submit-label-button">
+        <p id="submit-label">Click to proceed:</p> 
+        <p id="submit-button">{{ form.submit() }}</p>
+    </div>
+    
+</form>
+
+{% endblock %}

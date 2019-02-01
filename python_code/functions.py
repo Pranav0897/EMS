@@ -1,6 +1,6 @@
 import numpy as np
-import matlabopti
-import matlabems
+# import matlabopti
+import emsmatlab
 
 def ybus_incidence(linedatas, busdatas):
 
@@ -390,7 +390,7 @@ def state_estimate(P,Q,Pij,Qij, casefile):
 	# return [Vse, phise]
 	return None
 
-def state_estimate_alt(path_to_file, P, Q, Pij, Qij):
+def state_estimate_alt(path_to_file, P, Q, Pij, Qij, V_up, V_d):
 	# using entire matlab script as a single library
 	P = P.reshape((P.shape[0], 1))
 	P = P.tolist()
@@ -401,8 +401,8 @@ def state_estimate_alt(path_to_file, P, Q, Pij, Qij):
 	Qij = Qij.reshape((Qij.shape[0], 1))
 	Qij = Qij.tolist()
 
-	ems = matlabems.initialize()
-	Vse, phise = ems.state_estimate(path_to_file, P, Q, Pij, Qij, nargout=2)
+	ems = emsmatlab.initialize()
+	Vse, phise = ems.state_estimate(path_to_file, P, Q, Pij, Qij, V_up, V_d, nargout=2)
 	
 	return Vse, phise
 
@@ -412,7 +412,7 @@ def newton_alt(ybus, busdatas, linedatas):
 	busdatas = busdatas.tolist()
 	linedatas = linedatas.tolist()
 
-	ems = matlabems.initialize()
+	ems = emsmatlab.initialize()
 	V, phi = ems.newton(ybus, busdatas, linedatas, nargout=2)
 
 	V = np.array(V)

@@ -9,11 +9,24 @@ case14 = sio.loadmat('case14.mat')['a_dict']
 
 # [V,phi] = newton(ybus,busdatas,linedatas)
 [V, phi] = newton_alt(ybus, busdatas, linedatas)
-
+print("V:")
+print(V)
+print("phi:")
+print(phi)
 [P,Q,Pij,Qij] = measurements(linedatas,V,phi,ybus)
 
+# P = np.load('p.npy')
+# Q = np.load('q.npy')
+# Pij = np.load('pij.npy')
+# Qij = np.load('qij.npy')
+V_up = 1.1
+V_d = 0.9
 # state_estimate(P,Q,Pij,Qij, case14)
-# [vse, phise] = state_estimate_alt("case14.mat", P, Q, Pij, Qij)
+[vse, phise] = state_estimate_alt("case14.mat", P, Q, Pij, Qij, V_up, V_d)
+print("vse")
+print(vse)
+print("phise")
+print(phise)
 
 # print("***************busdatas******************")
 # print(busdatas)
@@ -43,11 +56,11 @@ case14 = sio.loadmat('case14.mat')['a_dict']
 # print(Q)
 
 
-print("***************Pij******************")
-print(Pij)
+# print("***************Pij******************")
+# print(Pij)
 
-print("***************Qij******************")
-print(Qij)
+# print("***************Qij******************")
+# print(Qij)
 
 
 

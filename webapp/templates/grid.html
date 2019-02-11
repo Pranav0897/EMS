@@ -5,7 +5,10 @@
 
 <!-- <p id="gen-grid-button">Generate Grid</p> -->
 
-<img src = "../bus_grid.jpg" id="grid-img">
+<!-- <img src = "../bus_grid.jpg" id="grid-img"> -->
+
+<img src = "{{url_for('static', filename='bus_grid.png')}}" id="grid-img" style="width:100%;height:40%;" >	
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'grid.js') }}"></script>

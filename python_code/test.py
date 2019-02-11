@@ -22,7 +22,7 @@ print(phi)
 V_up = 1.1
 V_d = 0.9
 # state_estimate(P,Q,Pij,Qij, case14)
-[vse, phise] = state_estimate_alt("case14.mat", P, Q, Pij, Qij, V_up, V_d)
+[vse, phise] = state_estimate_alt("case14.mat", P, Q, Pij, Qij, V_up=1,1, V_d=0.9)
 print("vse")
 print(vse)
 print("phise")

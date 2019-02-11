@@ -40,6 +40,7 @@ def draw_graph(Pline,Qline,Vbus,phibus,filename='graph.png'):
     print(A)
     A.layout('dot')
     A.draw(filename)
+    
 def test_draw_graph():
     Pline=[1.56882890532245,
     0.755103818256536,

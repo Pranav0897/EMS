@@ -1,0 +1,17 @@
+#gen-grid-button
+{
+    position: absolute;
+    /* padding-left: 50%; */
+    font-size: 30px;
+    color: beige;
+}
+
+#gen-grid-button:hover
+{
+    color: yellowgreen;
+}
+
+img
+{
+    background-color: red;
+}

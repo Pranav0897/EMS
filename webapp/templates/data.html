@@ -6,20 +6,33 @@
 <h1>Input Data</h1>
 
 <form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
     <div class="input-label-entry">
-        <p class="label">.mat file path:</p>
-        <p class="entry">{{ form.path_input(size=512) }}</p>        
+        <p class="label">.p file path:</p>
+        <p><input type="text" name="p_path_input" /></p>
+        
     </div>
 
     <div class="input-label-entry">
-        <p class="label">path to bus and line datas:</p>
-        <p class="entry">{{ form.path_input(size=512) }}</p>        
+        <p class="label">.q file path:</p>
+        <p><input type="text" name="q_path_input" /></p>
+        
+    </div>
+
+    <div class="input-label-entry">
+        <p class="label">.pij file path:</p>
+        <p><input type="text" name="pij_path_input" /></p>
+        
+    </div>
+
+    <div class="input-label-entry">
+        <p class="label">.qij file path:</p>
+        <p><input type="text" name="qij_path_input" /></p>
+        
     </div>
     
     <div id="submit-label-button">
         <p id="submit-label">Click to proceed:</p> 
-        <p id="submit-button">{{ form.submit() }}</p>
+        <p id="submit-button"><input type="submit" value="submit" /></p>
     </div>
     
 </form>

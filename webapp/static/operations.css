@@ -1,4 +1,26 @@
-p
+ol
 {
-    color: red;
+    padding-left: 40px;
+    /* list-style-position: inside; */
+}
+
+.list-element-head a
+{
+    margin-left: 50px; 
+    text-decoration: none;
+    font-size: 35px;
+    color: beige;   
+}
+
+.list-element-head :hover
+{
+    color: yellowgreen; 
+}
+
+.list-element-content
+{
+    margin-left: 100px;
+    color: beige;
+    font-size: 25px;
+    
 }
